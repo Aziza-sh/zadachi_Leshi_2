@@ -2,7 +2,7 @@ import sqlite3
 
 def create_bd():
     connection = sqlite3.connect('accounts.db')
-    cursor = conn.cursor()
+    cursor = connection.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS accounts (
             id INTEGER PRIMARY KEY,
@@ -11,8 +11,8 @@ def create_bd():
             balance REAL DEFAULT 0
         )
     ''')
-    conn.commit()
-    conn.close()
+    connection.commit()
+    connection.close()
 
 
 def add_account(username, password, balance):
@@ -45,7 +45,7 @@ def check_balance(username):
     conn.close()
     return balance[0] if balance else None
 
-create_database()
+create_bd()
 
 add_account('user1', 'password1', 0.0)
 add_account('user2', 'password2', 0.0)
@@ -77,7 +77,3 @@ if user:
             print(f"Текущий баланс: {round(balance, 3)}")
 else:
     print("Неверный логин или пароль.")
-
-   
-         
-
